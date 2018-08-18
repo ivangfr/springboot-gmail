@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: springboot-gmail
+
+gmail:
+  application-name: ${spring.application.name}
+  client-id: CLIENT_ID
+  client-secret: CLIENT_SECRET
+  token-server-url: "https://www.googleapis.com/oauth2/v4/token"
+  refresh-token: REFRESH_TOKEN
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      base-path: /
+      exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always

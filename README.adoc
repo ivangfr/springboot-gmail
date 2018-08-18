@@ -1,0 +1,70 @@
+= springboot-gmail
+
+== Goal
+
+The goal of this project is to implement a simple Springboot Java application that communicates with a GMail inbox account
+using GMail API.
+
+== Endpoints
+
+- `GET /api/v1/labels`
+- `GET /api/v1/labels/{labelName}`
+
+- `GET /api/v1/messages`
+- `GET /api/v1/messages/{messageId}`
+- `POST /api/v1/messages/{messageId}/labels`
+
+- `GET /api/v1/threads`
+- `GET /api/v1/threads/{threadId}`
+
+- `GET /api/v1/histories/{startHistoryId}`
+
+== Running the application without credentials
+
+- First, you need to enable the Gmail API. In order to do it, access this website
+https://developers.google.com/gmail/api/quickstart/java and follow the instructions in `Step 1: Turn on the Gmail API`.
+Write down `client_id` and `client_secret` or just download the `credentials.json` file. It contains the credentials
+that will be used on the next steps.
+
+- Open a new terminal
+
+- To start the application run
+----
+mvn spring-boot:run
+----
+
+- Next, you need to get a `code` from Google. Open a browser and access the link bellow informing the
+`client_id` and the scope you allow the application to have (for more about scopes, please check
+https://developers.google.com/gmail/api/auth/scopes).
+
+WARNING: In the example bellow, we are using `https://mail.google.com`. It allows full access to the account!
+
+----
+https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=CLIENT_ID&scope=https://mail.google.com&redirect_uri=http://localhost:8080/callback
+----
+
+- Choose the Google account and allow Quickstart to access your Google Account. You will get the `code` in the response
+
+- Open a new terminal and run the following command, replacing `CODE`, `CLIENT_ID` and `CLIENT_SECRET` with the ones
+you got in the steps above.
+----
+curl -i -X POST https://www.googleapis.com/oauth2/v4/token \
+  -d "grant_type=authorization_code" \
+  -d "code=CODE" \
+  -d "client_id=CLIENT_ID" \
+  -d "client_secret=CLIENT_SECRET" \
+  -d "redirect_uri=http://localhost:8080/callback"
+----
+
+- Finally, set `client_id`, `client_secret` and `refresh_token` in the `application.yml` and restart the application.
+
+- **Done!** Once you have the credentials set in `application.yml` and they are valid, you don't need to do all those steps
+again.
+
+== Running the application with GMail credentials already set
+
+- Open a new terminal
+- Inside `/springboot-gmail` folder run
+----
+mvn spring-boot:run
+----
