@@ -34,8 +34,8 @@ that will be used on the next steps.
 - Next, you need to get a `code` from Google. Open a browser and access the link below informing the `client_id` and
 the scope you allow the application to have.
 
-**WARNING: In the example below, we are using `https://mail.google.com`. It allows full access to the account! For more
-about scopes, please check https://developers.google.com/gmail/api/auth/scopes.**
+WARNING: In the example below, we are using https://mail.google.com. It allows full access to the account! For more
+about scopes, please check https://developers.google.com/gmail/api/auth/scopes.
 
 ----
 https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=CLIENT_ID&scope=https://mail.google.com&redirect_uri=http://localhost:8080/callback
