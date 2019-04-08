@@ -1,9 +1,7 @@
-= springboot-gmail
+= `springboot-gmail`
 
-== Goal
-
-The goal of this project is to implement a simple Springboot Java application that communicates with a GMail inbox account
-using GMail API.
+The goal of this project is to implement a simple spring-boot Java application that communicates with a GMail inbox
+account using GMail API.
 
 == Endpoints
 
@@ -21,8 +19,8 @@ using GMail API.
 
 == Running the application without credentials
 
-- First, you need to enable the Gmail API. In order to do it, access this website
-https://developers.google.com/gmail/api/quickstart/java and follow the instructions in `Step 1: Turn on the Gmail API`.
+- First, you need to enable the GMail API. In order to do it, access this website
+https://developers.google.com/gmail/api/quickstart/java and follow the instructions in `Step 1: Turn on the GMail API`.
 Write down `client_id` and `client_secret` or just download the `credentials.json` file. It contains the credentials
 that will be used on the next steps.
 
@@ -30,14 +28,14 @@ that will be used on the next steps.
 
 - To start the application run
 ----
-mvn spring-boot:run
+./mvnw spring-boot:run
 ----
 
-- Next, you need to get a `code` from Google. Open a browser and access the link bellow informing the
-`client_id` and the scope you allow the application to have (for more about scopes, please check
+- Next, you need to get a `code` from Google. Open a browser and access the link below informing the `client_id` and
+the scope you allow the application to have (for more about scopes, please check
 https://developers.google.com/gmail/api/auth/scopes).
 
-WARNING: In the example bellow, we are using `https://mail.google.com`. It allows full access to the account!
+WARNING: In the example below, we are using `https://mail.google.com`. It allows full access to the account!
 
 ----
 https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=CLIENT_ID&scope=https://mail.google.com&redirect_uri=http://localhost:8080/callback
@@ -66,5 +64,17 @@ again.
 - Open a new terminal
 - Inside `/springboot-gmail` folder run
 ----
-mvn spring-boot:run
+./mvnw spring-boot:run
 ----
+
+== Some curl calls
+
+```
+curl -i http://localhost:8080/api/v1/labels
+curl -i http://localhost:8080/api/v1/messages
+curl -i http://localhost:8080/api/v1/threads
+```
+
+== TODO
+
+- Springfox Swagger is conflicting with Google libraries. SwaggerConfig.java is commented for now until a fix is found.
