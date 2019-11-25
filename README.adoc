@@ -1,7 +1,7 @@
 = `springboot-gmail`
 
-The goal of this project is to implement a simple spring-boot Java application that communicates with a GMail inbox
-account using https://developers.google.com/gmail/api/[GMail API].
+The goal of this project is to implement a https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/[`Spring Boot`]
+Web Java application that communicates with a GMail inbox account using https://developers.google.com/gmail/api/[`GMail API`].
 
 == Endpoints
 
@@ -19,32 +19,35 @@ account using https://developers.google.com/gmail/api/[GMail API].
 
 == Running the application without credentials
 
-- First, you need to enable the GMail API. In order to do it, access this website
+First, you need to enable the GMail API. In order to do it, access this website
 https://developers.google.com/gmail/api/quickstart/java and follow the instructions in `Step 1: Turn on the GMail API`.
 Write down `client_id` and `client_secret` or just download the `credentials.json` file. It contains the credentials
 that will be used on the next steps.
 
-- Open a new terminal
+Then, open a terminal and inside `springboot-gmail` folder, run the following command
 
-- To start the application run
+[source]
 ----
 ./mvnw spring-boot:run
 ----
 
-- Next, you need to get a `code` from Google. Open a browser and access the link below informing the `client_id` and
+Next, you need to get a `code` from Google. Open a browser and access the link below informing the `client_id` and
 the scope you allow the application to have.
 
 WARNING: In the example below, we are using https://mail.google.com. It allows full access to the account! For more
 about scopes, please check https://developers.google.com/gmail/api/auth/scopes.
 
+[source]
 ----
 https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=CLIENT_ID&scope=https://mail.google.com&redirect_uri=http://localhost:8080/callback
 ----
 
-- Choose the Google account and allow Quickstart to access your Google Account. You will get the `code` in the response
+Choose the Google account and allow `Quickstart` to access your Google Account. You will get the `code` in the response
 
-- Open a new terminal and run the following command, replacing `CODE`, `CLIENT_ID` and `CLIENT_SECRET` with the ones
+Open a new terminal and run the following command, replacing `CODE`, `CLIENT_ID` and `CLIENT_SECRET` with the ones
 you got in the steps above.
+
+[source]
 ----
 curl -i -X POST https://www.googleapis.com/oauth2/v4/token \
   -d "grant_type=authorization_code" \
@@ -54,21 +57,23 @@ curl -i -X POST https://www.googleapis.com/oauth2/v4/token \
   -d "redirect_uri=http://localhost:8080/callback"
 ----
 
-- Finally, set `client_id`, `client_secret` and `refresh_token` in the `application.yml` and restart the application.
+Finally, set `client_id`, `client_secret` and `refresh_token` in the `application.yml` and restart the application.
 
-- **Done!** Once you have the credentials set in `application.yml` and they are valid, you don't need to do all those steps
+**Done!** Once you have the credentials set in `application.yml` and they are valid, you don't need to do all those steps
 again.
 
 == Running the application with GMail credentials already set
 
-- Open a new terminal
-- Inside `/springboot-gmail` folder run
+Open a new terminal and inside `springboot-gmail` folder run
+
+[source]
 ----
 ./mvnw spring-boot:run
 ----
 
 == Some curl calls
 
+[source]
 ----
 curl -i http://localhost:8080/api/v1/labels
 curl -i http://localhost:8080/api/v1/messages
@@ -77,98 +82,10 @@ curl -i http://localhost:8080/api/v1/threads
 
 == Disabling access to GMail API
 
-- Go to myaccount.google.com/permissions
-- Select `Quickstart` and click `REMOVE ACCESS` button
+In a browser, access `https://myaccount.google.com/permissions`
+
+Then, in the `Third-party apps with account access`, select `Quickstart`
+
+Finally, click on `REMOVE ACCESS` button.
 
 image::images/remove-quickstart.png[]
-
-== TODO
-
-- Springfox Swagger is conflicting with Google libraries. SwaggerConfig.java is commented for now until a fix is found.
-
-----
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-An attempt was made to call a method that does not exist. The attempt was made from the following location:
-
-    springfox.documentation.spring.web.scanners.ApiListingScanner.scan(ApiListingScanner.java:117)
-
-The following method did not exist:
-
-    com.google.common.collect.FluentIterable.append(Ljava/lang/Iterable;)Lcom/google/common/collect/FluentIterable;
-
-The method's class, com.google.common.collect.FluentIterable, is available from the following locations:
-
-    jar:file:/Users/ivanfranchin/.m2/repository/com/google/guava/guava-jdk5/17.0/guava-jdk5-17.0.jar!/com/google/common/collect/FluentIterable.class
-    jar:file:/Users/ivanfranchin/.m2/repository/com/google/guava/guava/20.0/guava-20.0.jar!/com/google/common/collect/FluentIterable.class
-
-It was loaded from the following location:
-
-    file:/Users/ivanfranchin/.m2/repository/com/google/guava/guava-jdk5/17.0/guava-jdk5-17.0.jar
-
-
-Action:
-
-Correct the classpath of your application so that it contains a single, compatible version of com.google.common.collect.FluentIterable
-
-[WARNING]
-java.lang.reflect.InvocationTargetException
-    at sun.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
-    at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
-    at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
-    at java.lang.reflect.Method.invoke (Method.java:498)
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run (AbstractRunMojo.java:558)
-    at java.lang.Thread.run (Thread.java:745)
-Caused by: org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NoSuchMethodError: com.google.common.collect.FluentIterable.append(Ljava/lang/Iterable;)Lcom/google/common/collect/FluentIterable;
-    at org.springframework.context.support.DefaultLifecycleProcessor.doStart (DefaultLifecycleProcessor.java:185)
-    at org.springframework.context.support.DefaultLifecycleProcessor.access$200 (DefaultLifecycleProcessor.java:53)
-    at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start (DefaultLifecycleProcessor.java:360)
-    at org.springframework.context.support.DefaultLifecycleProcessor.startBeans (DefaultLifecycleProcessor.java:158)
-    at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh (DefaultLifecycleProcessor.java:122)
-    at org.springframework.context.support.AbstractApplicationContext.finishRefresh (AbstractApplicationContext.java:893)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh (ServletWebServerApplicationContext.java:163)
-    at org.springframework.context.support.AbstractApplicationContext.refresh (AbstractApplicationContext.java:552)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh (ServletWebServerApplicationContext.java:142)
-    at org.springframework.boot.SpringApplication.refresh (SpringApplication.java:775)
-    at org.springframework.boot.SpringApplication.refreshContext (SpringApplication.java:397)
-    at org.springframework.boot.SpringApplication.run (SpringApplication.java:316)
-    at org.springframework.boot.SpringApplication.run (SpringApplication.java:1260)
-    at org.springframework.boot.SpringApplication.run (SpringApplication.java:1248)
-    at com.mycompany.springbootgmail.SpringbootGmailApplication.main (SpringbootGmailApplication.java:10)
-    at sun.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
-    at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
-    at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
-    at java.lang.reflect.Method.invoke (Method.java:498)
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run (AbstractRunMojo.java:558)
-    at java.lang.Thread.run (Thread.java:745)
-Caused by: java.lang.NoSuchMethodError: com.google.common.collect.FluentIterable.append(Ljava/lang/Iterable;)Lcom/google/common/collect/FluentIterable;
-    at springfox.documentation.spring.web.scanners.ApiListingScanner.scan (ApiListingScanner.java:117)
-    at springfox.documentation.spring.web.scanners.ApiDocumentationScanner.scan (ApiDocumentationScanner.java:71)
-    at springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.scanDocumentation (DocumentationPluginsBootstrapper.java:101)
-    at springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper.start (DocumentationPluginsBootstrapper.java:167)
-    at org.springframework.context.support.DefaultLifecycleProcessor.doStart (DefaultLifecycleProcessor.java:182)
-    at org.springframework.context.support.DefaultLifecycleProcessor.access$200 (DefaultLifecycleProcessor.java:53)
-    at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start (DefaultLifecycleProcessor.java:360)
-    at org.springframework.context.support.DefaultLifecycleProcessor.startBeans (DefaultLifecycleProcessor.java:158)
-    at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh (DefaultLifecycleProcessor.java:122)
-    at org.springframework.context.support.AbstractApplicationContext.finishRefresh (AbstractApplicationContext.java:893)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh (ServletWebServerApplicationContext.java:163)
-    at org.springframework.context.support.AbstractApplicationContext.refresh (AbstractApplicationContext.java:552)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh (ServletWebServerApplicationContext.java:142)
-    at org.springframework.boot.SpringApplication.refresh (SpringApplication.java:775)
-    at org.springframework.boot.SpringApplication.refreshContext (SpringApplication.java:397)
-    at org.springframework.boot.SpringApplication.run (SpringApplication.java:316)
-    at org.springframework.boot.SpringApplication.run (SpringApplication.java:1260)
-    at org.springframework.boot.SpringApplication.run (SpringApplication.java:1248)
-    at com.mycompany.springbootgmail.SpringbootGmailApplication.main (SpringbootGmailApplication.java:10)
-    at sun.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
-    at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
-    at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
-    at java.lang.reflect.Method.invoke (Method.java:498)
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run (AbstractRunMojo.java:558)
-    at java.lang.Thread.run (Thread.java:745)
-----

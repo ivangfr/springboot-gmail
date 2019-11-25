@@ -10,8 +10,6 @@ gmail:
   refresh-token: REFRESH_TOKEN
 
 management:
-  security:
-    enabled: false
   endpoints:
     web:
       base-path: /

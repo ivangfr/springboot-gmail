@@ -4,32 +4,26 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Validated
 @ConfigurationProperties(prefix = "gmail")
 public class GmailProperties {
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String applicationName;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String clientId;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String clientSecret;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String tokenServerUrl;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String refreshToken;
 
 }
