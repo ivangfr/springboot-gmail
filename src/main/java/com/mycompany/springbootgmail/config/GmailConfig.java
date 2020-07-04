@@ -7,7 +7,9 @@ import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.gmail.Gmail;
+import com.mycompany.springbootgmail.exception.GmailConfigException;
 import com.mycompany.springbootgmail.properties.GmailProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,15 +17,12 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableConfigurationProperties(GmailProperties.class)
 public class GmailConfig {
 
     private final GmailProperties gmailProperties;
-
-    public GmailConfig(GmailProperties gmailProperties) {
-        this.gmailProperties = gmailProperties;
-    }
 
     @Bean
     Gmail gmail() {
@@ -49,8 +48,10 @@ public class GmailConfig {
         try {
             return GoogleNetHttpTransport.newTrustedTransport();
         } catch (GeneralSecurityException | IOException e) {
-            throw new RuntimeException(e);
+            throw new GmailConfigException(e);
         }
     }
+
+    public static final String USER_ID_ME = "me";
 
 }

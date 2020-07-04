@@ -15,15 +15,10 @@ public class GmailProperties {
     private String applicationName;
 
     @NotBlank
-    private String clientId;
-
-    @NotBlank
-    private String clientSecret;
-
-    @NotBlank
     private String tokenServerUrl;
 
-    @NotBlank
+    private String clientId;
+    private String clientSecret;
     private String refreshToken;
 
 }

@@ -2,35 +2,41 @@ package com.mycompany.springbootgmail.service;
 
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Label;
+import com.mycompany.springbootgmail.exception.GmailLabelServiceException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
+import static com.mycompany.springbootgmail.config.GmailConfig.USER_ID_ME;
+
+@RequiredArgsConstructor
 @Service
 public class GmailLabelServiceImpl implements GmailLabelService {
 
-    private static final String USER_ID = "me";
-
     private final Gmail gmail;
 
-    public GmailLabelServiceImpl(Gmail gmail) {
-        this.gmail = gmail;
+    @Override
+    public List<Label> getLabels() {
+        try {
+            return gmail.users().labels().list(USER_ID_ME).execute().getLabels();
+        } catch (IOException e) {
+            throw new GmailLabelServiceException(e);
+        }
     }
 
     @Override
-    public List<Label> getLabels() throws IOException {
-        return gmail.users().labels().list(USER_ID).execute().getLabels();
-    }
-
-    @Override
-    public Label getLabel(String labelName) throws IOException {
-        List<Label> labels = gmail.users().labels().list(USER_ID).execute().getLabels();
-
-        return labels.stream()
-                .filter(l -> l.getName().equalsIgnoreCase(labelName))
-                .findFirst()
-                .orElse(null);
+    public Label getLabel(String labelName) {
+        try {
+            return gmail.users().labels().list(USER_ID_ME).execute().getLabels()
+                    .stream()
+                    .filter(l -> l.getName().equalsIgnoreCase(labelName))
+                    .findFirst()
+                    .orElse(null);
+        } catch (IOException e) {
+            throw new GmailLabelServiceException(e);
+        }
     }
 
 }
