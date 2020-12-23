@@ -7,7 +7,7 @@ import com.google.api.services.gmail.model.ModifyMessageRequest;
 import com.mycompany.springbootgmail.exception.GmailMessageServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,10 +56,10 @@ public class GmailMessageServiceImpl implements GmailMessageService {
     @Override
     public List<String> modifyMessageLabels(String messageId, List<String> labelsToAdd, List<String> labelsToRemove) {
         ModifyMessageRequest mods = new ModifyMessageRequest();
-        if (!StringUtils.isEmpty(labelsToAdd)) {
+        if (!CollectionUtils.isEmpty(labelsToAdd)) {
             mods.setAddLabelIds(labelsToAdd);
         }
-        if (!StringUtils.isEmpty(labelsToRemove)) {
+        if (!CollectionUtils.isEmpty(labelsToRemove)) {
             mods.setRemoveLabelIds(labelsToRemove);
         }
 

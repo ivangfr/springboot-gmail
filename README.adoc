@@ -17,9 +17,11 @@ image::images/springboot-gmail-swagger.png[springboot-gmail Swagger]
 
 . Click on the blue button `Enable the GMail API`;
 
-. A window with title `Configure your OAuth client` will open. Keep the `Desktop app` selected (default) and click on `CREATE` button;
+. A window with title `Enable the Gmail API` will open. In the field `Enter new project name`, you can keep the default `Quickstart`. Then, click on `Next` button;
 
-. A window with title `You're all set!` will open. Write down `client_id` and `client_secret`. They will be used on the next steps;
+. On the next window with title `Configure your OAuth client`, keep the `Desktop app` selected (default) and click on `CREATE` button;
+
+. A window with title `You're all set!` will open. Write down `client_id` and `client_secret`. They will be used on the next steps. Then, click on `Done` button;
 
 . In order to receive a callback from Google, let's start `springboot-gmail` application. So, open a terminal and inside `springboot-gmail` folder, run the following command
 +
@@ -28,9 +30,9 @@ image::images/springboot-gmail-swagger.png[springboot-gmail Swagger]
 ./mvnw clean spring-boot:run
 ----
 
-. Open a browser and access the link below informing the `client_id` (obtained in the step 4.) and the scope that you allow the application to have;
+. Open a browser and access the link below informing the `client_id` (obtained in the step 5.) and the scope that you allow the application to have;
 +
-CAUTION: In the link below, we are using the scope https://mail.google.com. It allows full access to the account! For more about scopes, please check https://developers.google.com/gmail/api/auth/scopes.
+CAUTION: In this link, we are using the scope https://mail.google.com. It allows full access to the account! For more information about scopes, please check https://developers.google.com/gmail/api/auth/scopes.
 +
 [source]
 ----
@@ -39,9 +41,9 @@ https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=CLIENT_ID
 
 . Choose your Google account;
 
-. A message will appear saying that `This app isn't verified`. Click on `Advanced` and then on `Go to Quickstart (unsafe)`
+. A message will appear saying that `Google hasn't verified this app`. Click on `Advanced` and then on `Go to Quickstart (unsafe)`
 
-. Allow `Quickstart` to access your Google Account. You will get the `code` after completing all allowance steps. Write down this `code`. It will be used on the next step;
+. Allow `Quickstart` to access your Google Account. You will get a `code` after completing all allowance steps. Write down this `code`. It will be used on the next step;
 
 . Open a new terminal and run the following command, replacing `CODE` (obtained in the previous step), `CLIENT_ID` and `CLIENT_SECRET` (both obtained in the step 4.)
 +
@@ -72,7 +74,7 @@ HTTP/2 200
 
 . **Done!** Now we have all the credentials needed to access GMail account, i.e, `client_id`, `client_secret` and `refresh_token`;
 
-. You can shutdown the application by pressing `Ctrl+C`.
+. Shutdown the `springboot-gmail` application by pressing `Ctrl+C`.
 
 == Running application with Maven
 
@@ -96,6 +98,33 @@ export GMAIL_REFRESH_TOKEN=...
 
 * `springboot-gmail` Swagger website can be accessed at http://localhost:8080/swagger-ui.html
 
+== Testing
+
+* Get labels
++
+[source]
+----
+curl http://localhost:8080/api/labels
+----
+
+* Get messages
++
+[source]
+----
+curl http://localhost:8080/api/messages
+----
+
+* Get threads
++
+[source]
+----
+curl http://localhost:8080/api/threads
+----
+
+== Shutdown
+
+- Go to the terminal where `springboot-gmail` application is running and press `Ctrl+C`
+
 == Disabling access to GMail API
 
 . In a browser, access `https://myaccount.google.com/permissions`
@@ -105,3 +134,4 @@ image::images/third-party-apps.png[Third-party apps,width='60%']
 . Finally, click on `REMOVE ACCESS` button.
 +
 image::images/remove-quickstart.png[Remove Quickstart,width='60%']
+. Click on `OK` to confirm the removal.
