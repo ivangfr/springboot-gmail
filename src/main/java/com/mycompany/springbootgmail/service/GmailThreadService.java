@@ -9,5 +9,4 @@ public interface GmailThreadService {
     Thread getThread(String threadId);
 
     List<Thread> getThreads(String query, List<String> labelIds);
-
 }

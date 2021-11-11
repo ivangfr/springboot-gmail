@@ -69,5 +69,4 @@ public class GmailMessageServiceImpl implements GmailMessageService {
             throw new GmailMessageServiceException(e);
         }
     }
-
 }

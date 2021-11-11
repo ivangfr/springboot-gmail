@@ -22,5 +22,4 @@ public class HistoryController {
     public List<History> getHistory(@PathVariable BigInteger startHistoryId) {
         return gmailHistoryService.getHistory(startHistoryId);
     }
-
 }

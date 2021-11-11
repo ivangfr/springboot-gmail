@@ -49,5 +49,4 @@ public class GmailThreadServiceImpl implements GmailThreadService {
         }
         return threads;
     }
-
 }

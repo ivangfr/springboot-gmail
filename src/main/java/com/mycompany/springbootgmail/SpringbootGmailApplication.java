@@ -9,5 +9,4 @@ public class SpringbootGmailApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringbootGmailApplication.class, args);
     }
-    
 }

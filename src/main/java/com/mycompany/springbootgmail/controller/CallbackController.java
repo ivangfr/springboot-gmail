@@ -13,5 +13,4 @@ public class CallbackController {
     public String callbackCode(@RequestParam String code) {
         return code;
     }
-
 }

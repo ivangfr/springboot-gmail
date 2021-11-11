@@ -11,5 +11,4 @@ public interface GmailMessageService {
     List<Message> getMessages(String query, List<String> labelIds);
 
     List<String> modifyMessageLabels(String messageId, List<String> labelsToAdd, List<String> labelsToRemove);
-
 }

@@ -26,5 +26,4 @@ public class LabelController {
     public Label getLabelId(@PathVariable String labelName) {
         return gmailLabelService.getLabel(labelName);
     }
-
 }

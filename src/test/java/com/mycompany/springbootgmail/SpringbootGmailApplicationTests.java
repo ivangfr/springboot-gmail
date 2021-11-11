@@ -11,5 +11,4 @@ class SpringbootGmailApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

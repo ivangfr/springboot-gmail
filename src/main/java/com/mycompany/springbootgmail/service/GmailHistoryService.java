@@ -8,5 +8,4 @@ import java.util.List;
 public interface GmailHistoryService {
 
     List<History> getHistory(BigInteger startHistoryId);
-
 }

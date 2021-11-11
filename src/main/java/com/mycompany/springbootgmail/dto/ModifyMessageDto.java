@@ -9,5 +9,4 @@ public class ModifyMessageDto {
 
     private List<String> labelsToRemove;
     private List<String> labelsToAdd;
-
 }

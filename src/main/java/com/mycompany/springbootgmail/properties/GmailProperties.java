@@ -20,5 +20,4 @@ public class GmailProperties {
     private String clientId;
     private String clientSecret;
     private String refreshToken;
-
 }

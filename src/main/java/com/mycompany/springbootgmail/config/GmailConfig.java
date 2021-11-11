@@ -53,5 +53,4 @@ public class GmailConfig {
     }
 
     public static final String USER_ID_ME = "me";
-
 }

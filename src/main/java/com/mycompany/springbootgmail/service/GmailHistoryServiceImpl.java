@@ -41,5 +41,4 @@ public class GmailHistoryServiceImpl implements GmailHistoryService {
         }
         return histories;
     }
-
 }

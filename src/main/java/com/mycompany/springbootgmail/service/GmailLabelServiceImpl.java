@@ -38,5 +38,4 @@ public class GmailLabelServiceImpl implements GmailLabelService {
             throw new GmailLabelServiceException(e);
         }
     }
-
 }

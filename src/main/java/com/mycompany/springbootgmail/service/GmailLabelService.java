@@ -9,5 +9,4 @@ public interface GmailLabelService {
     List<Label> getLabels();
 
     Label getLabel(String labelName);
-
 }

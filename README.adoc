@@ -2,14 +2,16 @@
 
 The goal of this project is to implement a https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/[`Spring Boot`] Web Java application that communicates with a GMail inbox account using https://developers.google.com/gmail/api/[`GMail API`].
 
+IMPORTANT: For now, the project is frozen due to changes in `Google API`
+
 == Application endpoints
 
-image::images/springboot-gmail-swagger.png[springboot-gmail Swagger]
+image::documentation/springboot-gmail-swagger.png[springboot-gmail Swagger]
 
 == Prerequisites
 
 * https://www.google.com/gmail/about/[`GMail Account`]
-* https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[`Java 11+`]
+* https://www.oracle.com/java/technologies/downloads/#java11[`Java 11+`]
 
 == Getting client_id, client_secret and refresh_token
 
@@ -130,8 +132,8 @@ curl http://localhost:8080/api/threads
 . In a browser, access `https://myaccount.google.com/permissions`
 . In `Third-party apps with account access` section, select `Quickstart`
 +
-image::images/third-party-apps.png[Third-party apps,width='60%']
+image::documentation/third-party-apps.png[Third-party apps,width='60%']
 . Finally, click on `REMOVE ACCESS` button.
 +
-image::images/remove-quickstart.png[Remove Quickstart,width='60%']
+image::documentation/remove-quickstart.png[Remove Quickstart,width='60%']
 . Click on `OK` to confirm the removal.

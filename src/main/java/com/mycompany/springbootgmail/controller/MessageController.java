@@ -38,5 +38,4 @@ public class MessageController {
                                             @RequestBody ModifyMessageDto modifyMessageDto) {
         return gmailMessageService.modifyMessageLabels(messageId, modifyMessageDto.getLabelsToAdd(), modifyMessageDto.getLabelsToRemove());
     }
-
 }

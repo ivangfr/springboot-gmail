@@ -29,5 +29,4 @@ public class ThreadController {
     public Thread getThread(@PathVariable String threadId) {
         return gmailThreadService.getThread(threadId);
     }
-
 }
